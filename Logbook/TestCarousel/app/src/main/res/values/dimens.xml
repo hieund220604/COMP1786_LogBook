@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="space_16">16dp</dimen>
+    <dimen name="pager_peek">48dp</dimen>
+
+    <!-- Card sizing (3:4 aspect) - adjust once to taste -->
+    <dimen name="card_width">350dp</dimen>
+    <dimen name="card_height">420dp</dimen>
+
+    <!-- Side padding applied to ViewPager2 to allow adjacent pages to peek -->
+    <dimen name="viewpager_side_padding">48dp</dimen>
+</resources>

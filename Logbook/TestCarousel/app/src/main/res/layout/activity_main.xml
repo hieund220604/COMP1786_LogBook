@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient">
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:clipToPadding="false"
+        android:clipChildren="false"
+        android:overScrollMode="never" />
+
+    <!-- Bottom dot indicators (optional; kept hidden by default) -->
+    <LinearLayout
+        android:id="@+id/dotsContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="28dp"
+        android:padding="6dp"
+        android:gravity="center"
+        android:visibility="gone" />
+
+    <!-- Backward button (left side) -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnBackward"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|start"
+        android:layout_marginStart="8dp"
+        android:contentDescription="@string/prev_button_description"
+        android:src="@android:drawable/ic_media_previous"
+        app:backgroundTint="@color/md_primary"
+        app:tint="@color/md_on_primary"
+        app:fabSize="normal"
+        app:elevation="0dp" />
+
+    <!-- Forward button (right side) -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnForward"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|end"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="@string/next_button_description"
+        android:src="@android:drawable/ic_media_next"
+        app:backgroundTint="@color/md_primary"
+        app:tint="@color/md_on_primary"
+        app:fabSize="normal"
+        app:elevation="0dp" />
+
+</FrameLayout>

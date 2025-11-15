@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Image Viewer</string>
+    <string name="title_with_counter">%1$d / %2$d</string>
+    <string name="image_content_description">Displayed image</string>
+    <string name="prev_button_description">Previous image</string>
+    <string name="next_button_description">Next image</string>
+    <string name="btn_backward">Backward</string>
+    <string name="btn_forward">Forward</string>
+</resources>

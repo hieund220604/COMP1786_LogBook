@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Theme Colors - Modern Blue Gradient -->
+    <color name="md_theme_primary">#1E88E5</color>
+    <color name="md_theme_primaryDark">#1565C0</color>
+    <color name="md_theme_primaryLight">#42A5F5</color>
+    <color name="md_theme_onPrimary">#FFFFFF</color>
+
+    <!-- Secondary Theme Colors - Vibrant Teal -->
+    <color name="md_theme_secondary">#26A69A</color>
+    <color name="md_theme_secondaryDark">#00897B</color>
+    <color name="md_theme_secondaryLight">#4DB6AC</color>
+    <color name="md_theme_onSecondary">#FFFFFF</color>
+
+    <!-- Accent Colors -->
+    <color name="md_theme_tertiary">#FF6B6B</color>
+    <color name="md_theme_accent">#FF9800</color>
+    <color name="md_theme_accentLight">#FFB74D</color>
+
+    <!-- Background Colors -->
+    <color name="md_theme_background">#F5F7FA</color>
+    <color name="md_theme_backgroundLight">#FAFBFC</color>
+    <color name="md_theme_surface">#FFFFFF</color>
+    <color name="md_theme_surfaceVariant">#F8F9FA</color>
+    <color name="md_theme_onSurface">#1A1A1A</color>
+    <color name="md_theme_onSurfaceVariant">#424242</color>
+
+    <!-- Error Colors -->
+    <color name="md_theme_error">#EF5350</color>
+    <color name="md_theme_errorDark">#C62828</color>
+    <color name="md_theme_onError">#FFFFFF</color>
+
+    <!-- Basic Colors -->
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="transparent">#00000000</color>
+
+    <!-- Enhanced UI Colors -->
+    <color name="primary_light">#E3F2FD</color>
+    <color name="primary_ultra_light">#F1F8FE</color>
+    <color name="secondary_light">#E0F2F1</color>
+    <color name="secondary_ultra_light">#F0F9F8</color>
+
+    <!-- Gray Scale - Professional Palette -->
+    <color name="gray_50">#FAFAFA</color>
+    <color name="gray_100">#F5F5F5</color>
+    <color name="gray_200">#EEEEEE</color>
+    <color name="gray_300">#E0E0E0</color>
+    <color name="gray_400">#BDBDBD</color>
+    <color name="gray_500">#9E9E9E</color>
+    <color name="gray_600">#757575</color>
+    <color name="gray_700">#616161</color>
+    <color name="gray_800">#424242</color>
+    <color name="gray_900">#212121</color>
+
+    <!-- Semantic Colors -->
+    <color name="success">#66BB6A</color>
+    <color name="successLight">#81C784</color>
+    <color name="successDark">#43A047</color>
+    <color name="warning">#FFA726</color>
+    <color name="warningLight">#FFB74D</color>
+    <color name="warningDark">#FB8C00</color>
+    <color name="info">#42A5F5</color>
+    <color name="infoLight">#64B5F6</color>
+    <color name="infoDark">#1E88E5</color>
+    <color name="danger">#EF5350</color>
+    <color name="dangerLight">#E57373</color>
+    <color name="dangerDark">#E53935</color>
+
+    <!-- Card Gradients -->
+    <color name="card_blue_start">#1E88E5</color>
+    <color name="card_blue_end">#1565C0</color>
+    <color name="card_teal_start">#26A69A</color>
+    <color name="card_teal_end">#00897B</color>
+    <color name="card_purple_start">#7E57C2</color>
+    <color name="card_purple_end">#5E35B1</color>
+    <color name="card_orange_start">#FF9800</color>
+    <color name="card_orange_end">#F57C00</color>
+
+    <!-- Overlay Colors -->
+    <color name="overlay_dark">#80000000</color>
+    <color name="overlay_light">#40000000</color>
+    <color name="scrim">#52000000</color>
+
+    <!-- Icon Tints -->
+    <color name="icon_tint_primary">#1E88E5</color>
+    <color name="icon_tint_secondary">#26A69A</color>
+    <color name="icon_tint_danger">#EF5350</color>
+    <color name="icon_tint_success">#66BB6A</color>
+    <color name="icon_tint_warning">#FFA726</color>
+
+    <!-- Shadow Colors -->
+    <color name="shadow_light">#1A000000</color>
+    <color name="shadow_medium">#33000000</color>
+    <color name="shadow_dark">#4D000000</color>
+</resources>

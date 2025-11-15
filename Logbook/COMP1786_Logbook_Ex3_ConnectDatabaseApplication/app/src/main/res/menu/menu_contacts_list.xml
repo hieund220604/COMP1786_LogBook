@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_search"
+        android:title="@string/search"
+        android:icon="@drawable/ic_search"
+        app:showAsAction="ifRoom|collapseActionView"
+        app:actionViewClass="androidx.appcompat.widget.SearchView" />
+
+    <item
+        android:id="@+id/action_sort_name_asc"
+        android:title="@string/sort_name_asc" />
+    <item
+        android:id="@+id/action_sort_name_desc"
+        android:title="@string/sort_name_desc" />
+    <item
+        android:id="@+id/action_sort_created_desc"
+        android:title="@string/sort_created_desc" />
+    <item
+        android:id="@+id/action_sort_created_asc"
+        android:title="@string/sort_created_asc" />
+
+    <item
+        android:id="@+id/action_filter_favorites"
+        android:title="@string/filter_favorites"
+        android:checkable="true" />
+
+    <item
+        android:id="@+id/action_filter_birth_month"
+        android:title="@string/filter_birth_month"
+        android:checkable="true" />
+
+    <item
+        android:id="@+id/action_multi_select"
+        android:title="@string/multi_select" />
+    <item
+        android:id="@+id/action_delete_selected"
+        android:title="@string/delete_selected" />
+
+
+    <item
+        android:id="@+id/action_clear_all"
+        android:title="@string/clear_all" />
+</menu>
+

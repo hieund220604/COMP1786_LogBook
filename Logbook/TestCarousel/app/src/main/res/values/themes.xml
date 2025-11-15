@@ -1,0 +1,10 @@
+<resources>
+    <!-- Khai báo theme CHÍNH, tên khớp Manifest -->
+    <style name="Theme.COMP1786_Logbook_Ex2_ViewImagesApplication"
+        parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/md_primary</item>
+        <item name="colorOnPrimary">@color/md_on_primary</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
+    </style>
+</resources>

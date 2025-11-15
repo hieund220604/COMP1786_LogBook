@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Spacing -->
+    <dimen name="spacing_tiny">4dp</dimen>
+    <dimen name="spacing_small">8dp</dimen>
+    <dimen name="spacing_medium">16dp</dimen>
+    <dimen name="spacing_large">24dp</dimen>
+    <dimen name="spacing_xlarge">32dp</dimen>
+
+    <!-- Card -->
+    <dimen name="card_corner_radius">16dp</dimen>
+    <dimen name="card_elevation">3dp</dimen>
+
+    <!-- Avatar -->
+    <dimen name="avatar_small">48dp</dimen>
+    <dimen name="avatar_medium">64dp</dimen>
+    <dimen name="avatar_large">120dp</dimen>
+    <dimen name="avatar_xlarge">140dp</dimen>
+
+    <!-- Icon -->
+    <dimen name="icon_small">16dp</dimen>
+    <dimen name="icon_medium">24dp</dimen>
+    <dimen name="icon_large">48dp</dimen>
+
+    <!-- Button -->
+    <dimen name="button_height">60dp</dimen>
+    <dimen name="button_corner_radius">12dp</dimen>
+
+    <!-- Text Size -->
+    <dimen name="text_tiny">12sp</dimen>
+    <dimen name="text_small">14sp</dimen>
+    <dimen name="text_medium">16sp</dimen>
+    <dimen name="text_large">20sp</dimen>
+    <dimen name="text_xlarge">24sp</dimen>
+</resources>
+

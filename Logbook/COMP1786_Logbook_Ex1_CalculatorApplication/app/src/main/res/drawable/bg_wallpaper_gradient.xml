@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Dark gradient fallback background -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:startColor="@color/bgGradientStart"
+                android:endColor="@color/bgGradientEnd"
+                android:angle="90"/>
+        </shape>
+    </item>
+
+    <!-- Subtle radial highlight -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="radial"
+                android:gradientRadius="600dp"
+                android:centerX="80%"
+                android:centerY="10%"
+                android:startColor="#22FFFFFF"
+                android:endColor="#00000000"/>
+        </shape>
+    </item>
+</layer-list>

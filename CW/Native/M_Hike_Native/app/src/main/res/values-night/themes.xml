@@ -1,0 +1,42 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Theme.M_Hike_Native" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Primary Brand Colors - Dark Mode -->
+        <item name="colorPrimary">@color/md_theme_primaryLight</item>
+        <item name="colorPrimaryVariant">@color/md_theme_primary</item>
+        <item name="colorOnPrimary">@color/gray_900</item>
+
+        <!-- Secondary Brand Colors - Dark Mode -->
+        <item name="colorSecondary">@color/md_theme_secondaryLight</item>
+        <item name="colorSecondaryVariant">@color/md_theme_secondary</item>
+        <item name="colorOnSecondary">@color/gray_900</item>
+
+        <!-- Background Colors - Dark Mode -->
+        <item name="android:colorBackground">@color/gray_900</item>
+        <item name="colorSurface">@color/gray_800</item>
+        <item name="colorOnSurface">@color/gray_100</item>
+
+        <!-- Error Colors -->
+        <item name="colorError">@color/dangerLight</item>
+        <item name="colorOnError">@color/gray_900</item>
+
+        <!-- Status Bar - Dark Mode -->
+        <item name="android:statusBarColor">@color/black</item>
+        <item name="android:windowLightStatusBar">false</item>
+
+        <!-- Navigation Bar - Dark Mode -->
+        <item name="android:navigationBarColor">@color/gray_900</item>
+
+        <!-- Shape Appearance -->
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.M_Hike.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.M_Hike.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.M_Hike.LargeComponent</item>
+
+        <!-- Card Style -->
+        <item name="materialCardViewStyle">@style/Widget.M_Hike.CardView</item>
+
+        <!-- Button Styles -->
+        <item name="materialButtonStyle">@style/Widget.M_Hike.Button</item>
+    </style>
+
+</resources>

@@ -1,0 +1,26 @@
+<resources>
+    <!-- Default app theme -->
+    <style name="Theme.COMP1786_Logbook_Ex1_CalculatorApplication"
+        parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/bg_wallpaper_gradient</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+
+    <!-- Transparent theme for MainActivity -->
+    <style name="Theme.COMP1786.Transparent"
+        parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- fully transparent window -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+
+        <!-- transparent system bars to avoid edges showing -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+
+        <!-- Optional Android 12+ splash (kept disabled) -->
+        <!-- <item name="windowSplashScreenBackground">@android:color/transparent</item> -->
+    </style>
+</resources>

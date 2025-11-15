@@ -1,0 +1,28 @@
+<resources>
+    <!-- Overall background (fallback if not using wallpaper as root background) -->
+    <color name="bgGradientStart">#0F0F12</color>
+    <color name="bgGradientEnd">#1A1C20</color>
+
+    <!-- Glass / stroke -->
+    <color name="glassStroke">#66FFFFFF</color>
+
+    <!-- Text -->
+    <color name="textPrimary">#FFFFFFFF</color>
+    <!-- Make dim text more visible for better contrast -->
+    <color name="textPrimaryDim">#E6FFFFFF</color>
+
+    <!-- Divider -->
+    <color name="dividerThin">#66FFFFFF</color> <!-- Increased visibility -->
+
+    <!-- Buttons -->
+    <!-- Stronger, saturated accent for better contrast on wallpapers -->
+    <color name="accentGreen">#00C853</color>
+    <color name="accentGreenStroke">#009E3F</color>
+    <!-- Key text: full white for clearer contrast against translucent buttons -->
+    <color name="keyTextDim">#FFFFFFFF</color>
+
+    <!-- Ripple -->
+    <color name="rippleLight">#40FFFFFF</color>
+    <!-- Ripple using accent with alpha -->
+    <color name="rippleAccent">#3300C853</color>
+</resources>

@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">COMP1786 Logbook Ex1 - Calculator</string>
+
+    <!-- Key labels -->
+    <string name="key_clear">C</string>
+    <string name="key_backspace">⌫</string>
+    <string name="key_percent">%</string>
+    <string name="key_divide">÷</string>
+    <string name="key_mul">×</string>
+    <string name="key_sub">−</string>
+    <string name="key_add">+</string>
+    <string name="key_plusminus">±</string>
+    <string name="key_dot">.</string>
+    <string name="key_equals">=</string>
+
+    <string name="key_0">0</string>
+    <string name="key_1">1</string>
+    <string name="key_2">2</string>
+    <string name="key_3">3</string>
+    <string name="key_4">4</string>
+    <string name="key_5">5</string>
+    <string name="key_6">6</string>
+    <string name="key_7">7</string>
+    <string name="key_8">8</string>
+    <string name="key_9">9</string>
+
+    <!-- User messages -->
+    <string name="msg_enter_second_number">Please enter the second number</string>
+    <string name="msg_divide_by_zero">Cannot divide by 0</string>
+    <string name="msg_invalid_number">Invalid number</string>
+    <string name="msg_key_not_supported">Key not supported: %1$s</string>
+    <string name="msg_result_copied">Result copied to clipboard</string>
+    <string name="msg_expression_copied">Expression copied to clipboard</string>
+    <string name="msg_nothing_to_copy">Nothing to copy</string>
+
+    <!-- Accessibility -->
+    <string name="desc_bg_decorative"/> <!-- decorative background -->
+    <string name="desc_display">Result display area</string>
+
+    <!-- Result format -->
+    <string name="result_equals">=%1$s</string>
+    <string name="initial_zero">0</string>
+</resources>

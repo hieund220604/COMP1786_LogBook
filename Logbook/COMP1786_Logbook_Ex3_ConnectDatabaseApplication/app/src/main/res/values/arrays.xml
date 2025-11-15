@@ -1,0 +1,11 @@
+<resources>
+    <array name="contact_avatars">
+        <item>@drawable/avatar_1</item>
+        <item>@drawable/avatar_2</item>
+        <item>@drawable/avatar_3</item>
+        <item>@drawable/avatar_4</item>
+        <item>@drawable/avatar_5</item>
+        <item>@drawable/avatar_6</item>
+    </array>
+</resources>
+

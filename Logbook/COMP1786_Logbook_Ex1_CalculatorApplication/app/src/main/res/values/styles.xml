@@ -1,0 +1,41 @@
+<resources>
+
+    <!-- Base: square cell, centered text -->
+    <style name="CalcKeyBase">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_rowWeight">1</item>
+        <item name="android:layout_columnWeight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/key_text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:minWidth">0dp</item>
+        <!-- Accessibility: ensure focusable and min touch target handled by parent or keys -->
+    </style>
+
+    <!-- Circular glass button -->
+    <style name="CalcKey.Circle" parent="CalcKeyBase">
+        <item name="android:textColor">@color/keyTextDim</item>
+        <item name="android:background">@drawable/circle_glass</item>
+        <item name="android:foreground">@drawable/ripple_glass</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <!-- Circular accent button (green) -->
+    <style name="CalcKey.CircleAccent" parent="CalcKeyBase">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@drawable/circle_accent</item>
+        <item name="android:foreground">@drawable/ripple_glass_accent</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <!-- Emphasized equals button -->
+    <style name="CalcKey.CircleAccentBold" parent="CalcKeyBase">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@drawable/circle_accent_bold</item>
+        <item name="android:foreground">@drawable/ripple_glass_accent</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+</resources>

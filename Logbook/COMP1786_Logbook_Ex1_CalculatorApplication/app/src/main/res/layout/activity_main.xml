@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
+
+    <!-- Background image 1: bottom layer -->
+    <ImageView
+        android:id="@+id/bgImage"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/bg_leaves"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/desc_bg_decorative"
+        android:importantForAccessibility="no"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Background image 2: crossfade target (initially hidden) -->
+    <ImageView
+        android:id="@+id/bgImage2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:alpha="0"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/desc_bg_decorative"
+        android:importantForAccessibility="no"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Display panel: frosted glass card -->
+    <FrameLayout
+        android:id="@+id/displayCard"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/display_top_margin"
+        android:background="@drawable/glass_panel_outline"
+        android:clipToOutline="true"
+        android:elevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="@dimen/display_height_percent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.92">
+
+        <!-- Blur source (decorative) -->
+        <ImageView
+            android:id="@+id/ivBlur"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/desc_bg_decorative"
+            android:importantForAccessibility="no" />
+
+        <!-- Glass tint overlay -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/glass_tint_overlay" />
+
+        <!-- Content stack -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end|bottom"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/display_padding_horizontal"
+            android:paddingTop="@dimen/display_padding_vertical"
+            android:paddingRight="@dimen/display_padding_horizontal"
+            android:paddingBottom="@dimen/display_padding_vertical">
+
+            <TextView
+                android:id="@+id/txtExpression"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:ellipsize="end"
+                android:gravity="end"
+                android:maxLines="1"
+                android:textColor="@color/textPrimaryDim"
+                android:textSize="@dimen/expression_text_size"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtResult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:gravity="end"
+                android:text="@string/initial_zero"
+                android:textColor="@color/textPrimary"
+                android:textSize="@dimen/result_text_size"
+                android:textStyle="bold"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:contentDescription="@string/desc_display" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/dividerThin" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <!-- Key grid container -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/keysBox"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:elevation="4dp"
+        app:layout_constraintTop_toBottomOf="@id/displayCard"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintWidth_percent="0.92"
+        app:layout_constraintDimensionRatio="4:5">
+
+        <GridLayout
+            android:id="@+id/grid"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alignmentMode="alignMargins"
+            android:columnCount="4"
+            android:rowCount="5"
+            android:useDefaultMargins="true"
+            android:padding="@dimen/grid_padding"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView style="@style/CalcKey.CircleAccent" android:text="@string/key_clear" android:contentDescription="@string/key_clear" />
+            <TextView style="@style/CalcKey.CircleAccent" android:text="@string/key_backspace" android:contentDescription="@string/key_backspace" />
+            <TextView style="@style/CalcKey.CircleAccent" android:text="@string/key_percent" android:contentDescription="@string/key_percent" />
+            <TextView style="@style/CalcKey.CircleAccent" android:text="@string/key_divide" android:contentDescription="@string/key_divide" />
+
+            <TextView style="@style/CalcKey.Circle" android:text="@string/key_7" android:contentDescription="@string/key_7" />
+            <TextView style="@style/CalcKey.Circle" android:text="@string/key_8" android:contentDescription="@string/key_8" />
+            <TextView style="@style/CalcKey.Circle" android:text="@string/key_9" android:contentDescription="@string/key_9" />
+            <TextView style="@style/CalcKey.CircleAccent" android:text="@string/key_mul" android:contentDescription="@string/key_mul" />
+
+            <TextView style="@style/CalcKey.Circle" android:text="@string/key_4" android:contentDescription="@string/key_4" />
+            <TextView style="@style/CalcKey.Circle" android:text="@string/key_5" android:contentDescription="@string/key_5" />
+            <TextView style="@style/CalcKey.Circle" android:text="@string/key_6" android:contentDescription="@string/key_6" />
+            <TextView style="@style/CalcKey.CircleAccent" android:text="@string/key_sub" android:contentDescription="@string/key_sub" />
+
+            <TextView style="@style/CalcKey.Circle" android:text="@string/key_1" android:contentDescription="@string/key_1" />
+            <TextView style="@style/CalcKey.Circle" android:text="@string/key_2" android:contentDescription="@string/key_2" />
+            <TextView style="@style/CalcKey.Circle" android:text="@string/key_3" android:contentDescription="@string/key_3" />
+            <TextView style="@style/CalcKey.CircleAccent" android:text="@string/key_add" android:contentDescription="@string/key_add" />
+
+            <TextView style="@style/CalcKey.Circle" android:text="@string/key_plusminus" android:contentDescription="@string/key_plusminus" />
+            <TextView style="@style/CalcKey.Circle" android:text="@string/key_0" android:contentDescription="@string/key_0" />
+            <TextView style="@style/CalcKey.Circle" android:text="@string/key_dot" android:contentDescription="@string/key_dot" />
+            <TextView style="@style/CalcKey.CircleAccentBold" android:text="@string/key_equals" android:contentDescription="@string/key_equals" />
+        </GridLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">Contacts</string>
+    <string name="app_title">Contacts</string>
+    <string name="app_subtitle">Manage your contacts with a clean, modern UI</string>
+    <string name="add_contact">Add contact</string>
+    <string name="choose_avatar">Choose Avatar</string>
+    <string name="save">Save</string>
+    <string name="avatar">avatar</string>
+    <string name="more">More</string>
+    <string name="email_example">email@example.com</string>
+    <string name="name_hint">Name</string>
+    <string name="dob_hint">DoB</string>
+    <string name="name_placeholder">John Doe</string>
+    <string name="delete">Delete</string>
+
+    <!-- New strings -->
+    <string name="search">Search</string>
+    <string name="search_hint">Search by name or email</string>
+    <string name="sort_name_asc">Sort by name A-Z</string>
+    <string name="sort_name_desc">Sort by name Z-A</string>
+    <string name="sort_created_desc">Newest first</string>
+    <string name="sort_created_asc">Oldest first</string>
+    <string name="filter_favorites">Show favorites only</string>
+    <string name="filter_birth_month">Birthdays this month</string>
+    <string name="multi_select">Multi-select</string>
+    <string name="clear_all">Clear all contacts</string>
+    <string name="clear_all_title">Clear all contacts</string>
+    <string name="clear_all_message">Are you sure you want to delete all contacts?</string>
+    <string name="cleared_all">All contacts deleted</string>
+    <string name="no_items_selected">No contacts selected</string>
+    <string name="deleted_selected">Selected contacts deleted</string>
+    <string name="confirm_delete_single">Delete %1$s?</string>
+    <string name="confirm_delete_multiple">Delete %1$d selected contacts?</string>
+    <string name="selection_mode_on">Selection mode ON. Tap items to select.</string>
+    <string name="selection_mode_off">Selection mode OFF.</string>
+    <string name="last_updated_format">Last updated: %1$s</string>
+    <string name="delete_selected">Delete selected</string>
+</resources>
