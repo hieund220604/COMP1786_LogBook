@@ -172,6 +172,69 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <!-- Elevation and Duration Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
+                android:baselineAligned="false">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:background="@drawable/bg_chip_modern"
+                    android:padding="12dp"
+                    android:gravity="center_vertical"
+                    android:layout_marginEnd="6dp">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_distance"
+                        app:tint="@color/md_theme_secondary"
+                        android:contentDescription="Elevation" />
+
+                    <TextView
+                        android:id="@+id/tvElevation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:textSize="13sp"
+                        android:textColor="@color/md_theme_secondary"
+                        tools:text="345 m" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:background="@drawable/bg_chip_modern"
+                    android:padding="12dp"
+                    android:gravity="center_vertical"
+                    android:layout_marginStart="6dp">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_calendar"
+                        app:tint="@color/md_theme_secondary"
+                        android:contentDescription="Duration" />
+
+                    <TextView
+                        android:id="@+id/tvDuration"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:textSize="13sp"
+                        android:textColor="@color/md_theme_secondary"
+                        tools:text="3h 20m" />
+                </LinearLayout>
+            </LinearLayout>
+
             <!-- Difficulty and Parking Row -->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -291,4 +354,3 @@
         </LinearLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>
-

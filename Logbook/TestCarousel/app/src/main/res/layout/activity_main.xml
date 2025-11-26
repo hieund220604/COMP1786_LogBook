@@ -12,7 +12,21 @@
         android:orientation="horizontal"
         android:clipToPadding="false"
         android:clipChildren="false"
-        android:overScrollMode="never" />
+        android:overScrollMode="never" >
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnForward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/next_button_description"
+            android:src="@drawable/right"
+            app:backgroundTint="@color/md_primary"
+            app:elevation="0dp"
+            app:fabSize="normal"
+            app:tint="@color/md_on_primary" />
+    </androidx.viewpager2.widget.ViewPager2>
 
     <!-- Bottom dot indicators (optional; kept hidden by default) -->
     <LinearLayout
@@ -34,24 +48,12 @@
         android:layout_gravity="center_vertical|start"
         android:layout_marginStart="8dp"
         android:contentDescription="@string/prev_button_description"
-        android:src="@android:drawable/ic_media_previous"
+        android:src="@drawable/left"
         app:backgroundTint="@color/md_primary"
         app:tint="@color/md_on_primary"
         app:fabSize="normal"
         app:elevation="0dp" />
 
     <!-- Forward button (right side) -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnForward"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|end"
-        android:layout_marginEnd="8dp"
-        android:contentDescription="@string/next_button_description"
-        android:src="@android:drawable/ic_media_next"
-        app:backgroundTint="@color/md_primary"
-        app:tint="@color/md_on_primary"
-        app:fabSize="normal"
-        app:elevation="0dp" />
 
 </FrameLayout>

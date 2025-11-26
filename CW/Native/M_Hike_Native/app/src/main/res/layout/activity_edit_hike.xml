@@ -6,55 +6,6 @@
     android:fitsSystemWindows="true"
     android:background="@color/md_theme_background">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        app:elevation="0dp">
-
-        <LinearLayout
-            android:id="@+id/topAppBarContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <FrameLayout
-                android:id="@+id/topAppBarInner"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@drawable/gradient_orange">
-
-
-            <ImageView
-                    android:id="@+id/topAppBarIcon"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_back"
-                    android:contentDescription="@string/app_name"
-                    android:layout_marginStart="12dp"
-                    android:layout_gravity="start|center_vertical"
-                    app:tint="@color/white" />
-
-                <TextView
-                    android:id="@+id/topAppBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/title_edit_hike"
-                    android:textColor="@color/white"
-                    android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textAlignment="center"
-                    android:includeFontPadding="false" />
-
-            </FrameLayout>
-
-        </LinearLayout>
-
-    </com.google.android.material.appbar.AppBarLayout>
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -67,6 +18,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="20dp">
+
+            <!-- Simple Title TextView -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/title_edit_hike"
+                android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+                android:textStyle="bold"
+                android:textColor="@color/md_theme_primary"
+                android:gravity="center"
+                android:layout_marginBottom="20dp"
+                android:paddingTop="24dp" />
 
             <com.google.android.material.card.MaterialCardView
                 style="?attr/materialCardViewElevatedStyle"
@@ -255,6 +218,56 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="numberDecimal"
+                            android:textSize="16sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Elevation"
+                        android:layout_marginTop="16dp"
+                        app:startIconDrawable="@drawable/ic_distance"
+                        app:startIconTint="@color/md_theme_secondary"
+                        app:suffixText="m"
+                        app:suffixTextColor="@color/md_theme_secondary"
+                        app:boxCornerRadiusTopStart="12dp"
+                        app:boxCornerRadiusTopEnd="12dp"
+                        app:boxCornerRadiusBottomStart="12dp"
+                        app:boxCornerRadiusBottomEnd="12dp"
+                        app:boxStrokeWidth="2dp"
+                        app:hintTextColor="@color/md_theme_secondary"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etElevation"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:textSize="16sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Duration"
+                        android:layout_marginTop="16dp"
+                        app:startIconDrawable="@drawable/ic_calendar"
+                        app:startIconTint="@color/md_theme_secondary"
+                        app:suffixText="minutes"
+                        app:suffixTextColor="@color/md_theme_secondary"
+                        app:boxCornerRadiusTopStart="12dp"
+                        app:boxCornerRadiusTopEnd="12dp"
+                        app:boxCornerRadiusBottomStart="12dp"
+                        app:boxCornerRadiusBottomEnd="12dp"
+                        app:boxStrokeWidth="2dp"
+                        app:hintTextColor="@color/md_theme_secondary"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etDuration"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
                             android:textSize="16sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 

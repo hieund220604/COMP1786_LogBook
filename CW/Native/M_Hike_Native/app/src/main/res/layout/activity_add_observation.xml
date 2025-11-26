@@ -6,55 +6,6 @@
     android:fitsSystemWindows="true"
     android:background="@color/md_theme_background">
 
-    <!-- Fixed App Bar -->
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        app:elevation="0dp">
-
-        <LinearLayout
-            android:id="@+id/topAppBarContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <FrameLayout
-                android:id="@+id/topAppBarInner"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@drawable/gradient_primary">
-
-
-                <ImageView
-                    android:id="@+id/topAppBarIcon"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_back"
-                    android:contentDescription="@string/app_name"
-                    android:layout_marginStart="12dp"
-                    android:layout_gravity="start|center_vertical"
-                    app:tint="@color/white" />
-
-                <TextView
-                    android:id="@+id/topAppBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/add_observation"
-                    android:textColor="@color/white"
-                    android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:layout_gravity="center" />
-
-            </FrameLayout>
-
-        </LinearLayout>
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <!-- Main Content -->
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -63,10 +14,22 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="20dp">
+
+            <!-- Simple Title TextView -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/add_observation"
+                android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+                android:textStyle="bold"
+                android:textColor="@color/md_theme_primary"
+                android:gravity="center"
+                android:layout_marginBottom="20dp"
+                android:paddingTop="24dp" />
 
             <!-- Hike Info Card -->
             <com.google.android.material.card.MaterialCardView

@@ -11,17 +11,34 @@
         android:layout_height="wrap_content"
         android:elevation="8dp">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/topAppBar"
+        <!-- Replaced MaterialToolbar with simple FrameLayout + TextView to act as topAppBar -->
+        <FrameLayout
+            android:id="@+id/topAppBarContainer"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@drawable/gradient_primary"
-            android:theme="@style/ThemeOverlay.Material3.ActionBar"
-            android:titleTextColor="@color/md_theme_onPrimary"
-            android:title="@string/title_main"
-            android:elevation="0dp"
-            app:titleCentered="true"
-            app:titleTextAppearance="@style/TextAppearance.Material3.HeadlineSmall" />
+            android:background="@drawable/gradient_primary">
+
+            <ImageView
+                android:id="@+id/topAppBarIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_back"
+                android:contentDescription="@string/app_name"
+                android:layout_marginStart="12dp"
+                android:layout_gravity="start|center_vertical"
+                app:tint="@color/white"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/topAppBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_main"
+                android:textColor="@color/md_theme_onPrimary"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+                android:layout_gravity="center" />
+
+        </FrameLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -318,4 +335,3 @@
     </ScrollView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
-

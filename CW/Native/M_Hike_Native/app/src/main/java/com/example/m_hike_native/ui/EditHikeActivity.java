@@ -13,13 +13,12 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.m_hike_native.R;
-import com.example.m_hike_native.database.HikeDatabaseHelper;
+import com.example.m_hike_native.data.HikeDatabaseHelper;
 import com.example.m_hike_native.model.Hike;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
@@ -28,7 +27,11 @@ import java.util.Locale;
 
 public class EditHikeActivity extends AppCompatActivity {
     int hikeId; HikeDatabaseHelper db;
+    // preserve loaded elevation/duration for update
+    double loadedElevation = 0.0;
+    int loadedDuration = 0;
     com.google.android.material.textfield.TextInputEditText etName, etLocation, etDate, etLength, etDescription;
+    com.google.android.material.textfield.TextInputEditText etElevation, etDuration;
     Spinner spinnerDifficulty; SwitchMaterial switchParking; Button btnUpdate;
 
     @Override
@@ -38,26 +41,6 @@ public class EditHikeActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_edit_hike);
 
-        // Setup simple top TextView and back icon
-        android.widget.TextView tvTitle = findViewById(R.id.topAppBar);
-        android.widget.ImageView ivBack = findViewById(R.id.topAppBarIcon);
-        if (tvTitle != null) tvTitle.setText(R.string.title_edit_hike);
-        if (ivBack != null) ivBack.setOnClickListener(v -> finish());
-
-        // Apply top inset padding to toolbar or root
-        View target = findViewById(R.id.topAppBarContainer);
-        if (target == null) {
-            ViewGroup content = findViewById(android.R.id.content);
-            if (content != null && content.getChildCount() > 0) target = content.getChildAt(0);
-        }
-        if (target != null) {
-            ViewCompat.setOnApplyWindowInsetsListener(target, (v, insets) -> {
-                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-                v.setPadding(v.getPaddingLeft(), systemBars.top, v.getPaddingRight(), v.getPaddingBottom());
-                return insets;
-            });
-        }
-
         hikeId = getIntent().getIntExtra("hike_id", -1);
         db = new HikeDatabaseHelper(this);
 
@@ -66,6 +49,8 @@ public class EditHikeActivity extends AppCompatActivity {
         etDate = findViewById(R.id.etDate);
         etLength = findViewById(R.id.etLength);
         etDescription = findViewById(R.id.etDescription);
+        etElevation = findViewById(R.id.etElevation);
+        etDuration = findViewById(R.id.etDuration);
         spinnerDifficulty = findViewById(R.id.spinnerDifficulty);
         switchParking = findViewById(R.id.switchParking);
         btnUpdate = findViewById(R.id.btnUpdate);
@@ -98,6 +83,17 @@ public class EditHikeActivity extends AppCompatActivity {
             if (etLocation!=null) etLocation.setText(c.getString(c.getColumnIndexOrThrow("location")));
             if (etDate!=null) etDate.setText(c.getString(c.getColumnIndexOrThrow("date")));
             if (etLength!=null) etLength.setText(String.valueOf(c.getDouble(c.getColumnIndexOrThrow("length"))));
+            // read new fields
+            int elevIdx = c.getColumnIndex("elevation");
+            if (elevIdx != -1) {
+                loadedElevation = c.getDouble(elevIdx);
+                if (etElevation != null) etElevation.setText(String.valueOf(loadedElevation));
+            }
+            int durIdx = c.getColumnIndex("duration_minutes");
+            if (durIdx != -1) {
+                loadedDuration = c.getInt(durIdx);
+                if (etDuration != null) etDuration.setText(String.valueOf(loadedDuration));
+            }
             String diff = c.getString(c.getColumnIndexOrThrow("difficulty"));
             if (diff!=null) {
                 for (int i=0;i<spinnerDifficulty.getCount();i++) {
@@ -123,9 +119,15 @@ public class EditHikeActivity extends AppCompatActivity {
         h.setLocation(etLocation.getText().toString().trim());
         h.setDate((etDate!=null && etDate.getText()!=null) ? etDate.getText().toString().trim() : "");
         try { if (etLength!=null && etLength.getText()!=null) h.setLength(Double.parseDouble(etLength.getText().toString().trim())); } catch (Exception ignored) {}
+        double elevation = 0;
+        try { if (etElevation != null && etElevation.getText() != null) elevation = Double.parseDouble(etElevation.getText().toString().trim()); } catch (Exception ignored) {}
+        int duration = 0;
+        try { if (etDuration != null && etDuration.getText() != null) duration = Integer.parseInt(etDuration.getText().toString().trim()); } catch (Exception ignored) {}
         h.setDifficulty(spinnerDifficulty.getSelectedItem().toString());
         h.setParking(switchParking!=null && switchParking.isChecked());
         h.setDescription((etDescription!=null && etDescription.getText()!=null) ? etDescription.getText().toString().trim() : "");
+        h.setElevation(elevation);
+        h.setDurationMinutes(duration);
 
         int rows = db.updateHike(h);
         if (rows>0) {

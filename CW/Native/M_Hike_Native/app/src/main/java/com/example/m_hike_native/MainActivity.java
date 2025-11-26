@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         View cardSearch = findViewById(R.id.cardSearch);
         View cardExport = findViewById(R.id.cardExport);
 
+        // ensure intents point to the new MVVM view package
         cardAdd.setOnClickListener(v -> startActivity(new Intent(this, com.example.m_hike_native.ui.AddHikeActivity.class)));
         cardList.setOnClickListener(v -> startActivity(new Intent(this, com.example.m_hike_native.ui.ListHikeActivity.class)));
         cardSearch.setOnClickListener(v -> startActivity(new Intent(this, com.example.m_hike_native.ui.SearchActivity.class)));

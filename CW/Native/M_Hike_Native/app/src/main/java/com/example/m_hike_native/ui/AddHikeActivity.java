@@ -14,14 +14,12 @@ import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.ActionBar;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.m_hike_native.R;
-import com.example.m_hike_native.database.HikeDatabaseHelper;
+import com.example.m_hike_native.data.HikeDatabaseHelper;
 import com.example.m_hike_native.model.Hike;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
@@ -30,6 +28,7 @@ import java.util.Locale;
 
 public class AddHikeActivity extends AppCompatActivity {
     EditText etName, etLocation, etDate, etLength, etDescription;
+    EditText etElevation, etDuration;
     Spinner spinnerDifficulty;
     SwitchMaterial switchParking;
     Button btnSave;
@@ -42,26 +41,6 @@ public class AddHikeActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_add_hike);
 
-        // Setup simple top TextView and back icon
-        android.widget.TextView tvTitle = findViewById(R.id.topAppBar);
-        android.widget.ImageView ivBack = findViewById(R.id.topAppBarIcon);
-        if (tvTitle != null) tvTitle.setText(R.string.title_add_hike);
-        if (ivBack != null) ivBack.setOnClickListener(v -> finish());
-
-        // Apply top inset padding to toolbar if present, otherwise to root content view
-        View target = findViewById(R.id.topAppBarContainer);
-        if (target == null) {
-            ViewGroup content = findViewById(android.R.id.content);
-            if (content != null && content.getChildCount() > 0) target = content.getChildAt(0);
-        }
-        if (target != null) {
-            ViewCompat.setOnApplyWindowInsetsListener(target, (v, insets) -> {
-                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-                v.setPadding(v.getPaddingLeft(), systemBars.top, v.getPaddingRight(), v.getPaddingBottom());
-                return insets;
-            });
-        }
-
         db = new HikeDatabaseHelper(this);
 
         etName = findViewById(R.id.etName);
@@ -70,6 +49,8 @@ public class AddHikeActivity extends AppCompatActivity {
         spinnerDifficulty = findViewById(R.id.spinnerDifficulty);
         etLength = findViewById(R.id.etLength);
         etDescription = findViewById(R.id.etDescription);
+        etElevation = findViewById(R.id.etElevation);
+        etDuration = findViewById(R.id.etDuration);
         switchParking = findViewById(R.id.switchParking);
         btnSave = findViewById(R.id.btnSave);
 
@@ -99,15 +80,25 @@ public class AddHikeActivity extends AppCompatActivity {
         String location = etLocation.getText().toString().trim();
         String date = etDate.getText().toString().trim();
         String difficulty = spinnerDifficulty.getSelectedItem().toString();
-        String desc = etDescription.getText().toString().trim();
+        String description = etDescription.getText().toString().trim();
         double length = 0;
         try {
             length = Double.parseDouble(etLength.getText().toString().trim());
         } catch (Exception ignored) {
         }
+        double elevation = 0;
+        try {
+            elevation = Double.parseDouble(etElevation.getText().toString().trim());
+        } catch (Exception ignored) {
+        }
+        int durationMinutes = 0;
+        try {
+            durationMinutes = Integer.parseInt(etDuration.getText().toString().trim());
+        } catch (Exception ignored) {
+        }
         boolean parking = switchParking.isChecked();
 
-        Hike hike = new Hike(name, location, date, length, difficulty, parking, desc);
+        Hike hike = new Hike(name, location, date, length, difficulty, parking, description, elevation, durationMinutes);
         boolean ok = db.insertHike(hike);
         if (ok) {
             Toast.makeText(this, "Hike saved", Toast.LENGTH_SHORT).show();

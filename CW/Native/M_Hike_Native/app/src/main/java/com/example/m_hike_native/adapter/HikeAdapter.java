@@ -15,7 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.m_hike_native.R;
-import com.example.m_hike_native.database.HikeDatabaseHelper;
+import com.example.m_hike_native.data.HikeDatabaseHelper;
 import com.example.m_hike_native.model.Hike;
 
 import java.util.ArrayList;
@@ -54,6 +54,20 @@ public class HikeAdapter extends RecyclerView.Adapter<HikeAdapter.VH> {
         }
         if (holder.tvParking != null) {
             holder.tvParking.setText(h.isParking() ? "Parking" : "No Parking");
+        }
+        if (holder.tvElevation != null) {
+            holder.tvElevation.setText(String.format("%.0f m", h.getElevation()));
+        }
+        if (holder.tvDuration != null) {
+            int mins = h.getDurationMinutes();
+            if (mins <= 0) {
+                holder.tvDuration.setText("");
+            } else {
+                int hrs = mins / 60;
+                int rem = mins % 60;
+                if (hrs > 0) holder.tvDuration.setText(String.format("%dh %02dm", hrs, rem));
+                else holder.tvDuration.setText(String.format("%dm", rem));
+            }
         }
 
         holder.itemView.setOnClickListener(v -> {
@@ -128,8 +142,14 @@ public class HikeAdapter extends RecyclerView.Adapter<HikeAdapter.VH> {
         }
     }
 
+    public void updateList(ArrayList<Hike> newList) {
+        this.list = newList;
+        notifyDataSetChanged();
+    }
+
     static class VH extends RecyclerView.ViewHolder {
         TextView tvName, tvLocation, tvDate, tvLength, tvDifficulty, tvParking;
+        TextView tvElevation, tvDuration;
         Button btnDelete, btnEdit;
         public VH(@NonNull View itemView) {
             super(itemView);
@@ -137,6 +157,8 @@ public class HikeAdapter extends RecyclerView.Adapter<HikeAdapter.VH> {
             tvLocation = itemView.findViewById(R.id.tvLocation);
             tvDate = itemView.findViewById(R.id.tvDate);
             tvLength = itemView.findViewById(R.id.tvLength);
+            tvElevation = itemView.findViewById(R.id.tvElevation);
+            tvDuration = itemView.findViewById(R.id.tvDuration);
             tvDifficulty = itemView.findViewById(R.id.tvDifficulty);
             tvParking = itemView.findViewById(R.id.tvParking);
             btnDelete = itemView.findViewById(R.id.btnDelete);

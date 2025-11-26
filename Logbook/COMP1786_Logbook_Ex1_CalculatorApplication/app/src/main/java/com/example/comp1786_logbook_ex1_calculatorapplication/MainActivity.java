@@ -17,6 +17,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /** Main activity controlling UI and delegating math to Calculator. */
 public class MainActivity extends AppCompatActivity {
@@ -157,25 +160,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupCopyToClipboard() {
-        // Long press on result to copy
+        // Long press on result: if empty or "0" try paste immediately; otherwise show explicit menu (Paste/Copy)
         txtResult.setOnLongClickListener(v -> {
-            String text = txtResult.getText().toString();
+            String rawText = txtResult.getText().toString();
+            String text = rawText == null ? "" : rawText.trim();
+
+            // If empty or zero, try paste first so user can long-press to paste quickly
             if (text.isEmpty() || text.equals("0")) {
-                toast(getString(R.string.msg_nothing_to_copy));
-                return true;
+                boolean pasted = performPasteFromClipboard();
+                if (pasted) return true; // success
+                // else fallthrough to show menu so user can attempt copy/paste manually
             }
 
-            // Remove "= " prefix if present
-            if (text.startsWith("= ")) {
-                text = text.substring(2);
-            }
-
-            ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-            ClipData clip = ClipData.newPlainText("calculator_result", text);
-            clipboard.setPrimaryClip(clip);
-
-            toast(getString(R.string.msg_result_copied));
-            performHapticFeedback(HapticFeedbackType.MEDIUM);
+            PopupMenu menu = new PopupMenu(MainActivity.this, txtResult);
+            menu.getMenu().add("Paste");
+            menu.getMenu().add("Copy");
+            menu.setOnMenuItemClickListener(item -> {
+                String title = item.getTitle().toString();
+                if ("Paste".equals(title)) {
+                    boolean ok = performPasteFromClipboard();
+                    if (!ok) toast(getString(R.string.msg_nothing_to_copy));
+                    return true;
+                } else if ("Copy".equals(title)) {
+                    performCopyFromResult();
+                    return true;
+                }
+                return false;
+            });
+            menu.show();
             return true;
         });
 
@@ -195,6 +207,57 @@ public class MainActivity extends AppCompatActivity {
             performHapticFeedback(HapticFeedbackType.MEDIUM);
             return true;
         });
+    }
+
+    /**
+     * Try to parse an expression string of the form "<a> <op> <b>" and set internal state.
+     * Returns true if parsing succeeded and state updated.
+     */
+    private boolean tryParseAndSetExpression(String expr) {
+        if (expr == null) return false;
+        String t = expr.trim();
+        if (t.isEmpty()) return false;
+        // tokens separated by spaces; expression constructed in updateDisplay uses spaces
+        String[] parts = t.split(" ");
+        if (parts.length < 3) return false;
+        // First token may itself contain grouping commas etc. Join tokens for b if extra spaces
+        String aStr = parts[0];
+        String op = parts[1];
+        StringBuilder bSb = new StringBuilder();
+        for (int i = 2; i < parts.length; i++) {
+            if (i > 2) bSb.append(' ');
+            bSb.append(parts[i]);
+        }
+        String bStr = bSb.toString();
+
+        // Normalize operator to one of the app's operators
+        String add = getString(R.string.key_add);
+        String sub = getString(R.string.key_sub);
+        String mul = getString(R.string.key_mul);
+        String div = getString(R.string.key_divide);
+        String normOp = null;
+        if (op.equals(add) || op.equals("+")) normOp = add;
+        else if (op.equals(sub) || op.equals("-") || op.equals("−")) normOp = sub;
+        else if (op.equals(mul) || op.equals("x") || op.equals("X") || op.equals("×")) normOp = mul;
+        else if (op.equals(div) || op.equals("/") || op.equals("÷")) normOp = div;
+        if (normOp == null) return false;
+
+        // Clean numeric strings
+        aStr = aStr.replace(",", "");
+        bStr = bStr.replace(",", "");
+        try {
+            // validate parsing
+            Calculator.parse(aStr);
+            Calculator.parse(bStr);
+            firstOperand = Calculator.sanitizeNumber(aStr);
+            currentOp = normOp;
+            input.setLength(0);
+            input.append(Calculator.sanitizeNumber(bStr));
+            computed = false;
+            return true;
+        } catch (Exception ex) {
+            return false;
+        }
     }
 
     private void wireKeysFromGrid() {
@@ -513,6 +576,195 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void toast(String msg) { Toast.makeText(this, msg, Toast.LENGTH_SHORT).show(); }
+
+    // Extracted copy behavior (keeps existing logic)
+    private void performCopyFromResult() {
+        String rawText = txtResult.getText().toString();
+        String text = rawText == null ? "" : rawText.trim();
+
+        boolean looksLikeResult = computed || text.startsWith("=") || (!text.isEmpty() && currentOp == null && !text.equals("0"));
+        if (looksLikeResult && !text.isEmpty()) {
+            if (text.startsWith("= ") && currentOp != null && input.length() > 0) {
+                String expr = txtExpression.getText().toString();
+                String previewValue = text.substring(2);
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("calculator_preview", expr + "\n" + previewValue);
+                if (clipboard != null) clipboard.setPrimaryClip(clip);
+                toast(getString(R.string.msg_result_copied));
+                performHapticFeedback(HapticFeedbackType.MEDIUM);
+                return;
+            }
+
+            String toCopy = text;
+            if (toCopy.startsWith("= ")) toCopy = toCopy.substring(2);
+            else if (toCopy.startsWith("=")) toCopy = toCopy.substring(1);
+            toCopy = toCopy.trim();
+
+            ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clip = ClipData.newPlainText("calculator_result", toCopy);
+            if (clipboard != null) clipboard.setPrimaryClip(clip);
+
+            toast(getString(R.string.msg_result_copied));
+            performHapticFeedback(HapticFeedbackType.MEDIUM);
+        } else {
+            toast(getString(R.string.msg_nothing_to_copy));
+        }
+    }
+
+    // Extracted paste behavior: attempt to paste regardless of display state (called from menu)
+    private boolean performPasteFromClipboard() {
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        if (clipboard == null || !clipboard.hasPrimaryClip()) return false;
+        ClipData clip = clipboard.getPrimaryClip();
+        if (clip == null || clip.getItemCount() == 0) return false;
+        CharSequence clipCs = clip.getItemAt(0).coerceToText(MainActivity.this);
+        if (clipCs == null) return false;
+        String clipText = clipCs.toString().trim();
+        if (clipText.isEmpty()) return false;
+
+        // 1) If clip contains a newline, it may be our preview payload: first line = expression
+        if (clipText.contains("\n")) {
+            String[] lines = clipText.split("\\n", 2);
+            String expr = lines.length > 0 ? lines[0].trim() : "";
+            if (!expr.isEmpty() && tryParseAndSetExpression(expr)) {
+                computed = false;
+                updateDisplay();
+                toast(getString(R.string.msg_pasted_from_clipboard));
+                // Debug
+                toast("Paste branch: preview/expression (newline)");
+                performHapticFeedback(HapticFeedbackType.MEDIUM);
+                return true;
+            }
+        }
+
+        // 2) If text looks like an inline expression (e.g. "12 + 3"), try to parse
+        if (clipText.matches(".*\\s[+\\-×÷xX/*]\\s.*")) {
+            if (tryParseAndSetExpression(clipText)) {
+                computed = false;
+                updateDisplay();
+                toast(getString(R.string.msg_pasted_from_clipboard));
+                // Debug
+                toast("Paste branch: inline expression");
+                performHapticFeedback(HapticFeedbackType.MEDIUM);
+                return true;
+            }
+        }
+
+        // 3) Try to treat as a numeric value (final result)
+        String clipVal = clipText;
+        if (clipVal.startsWith("= ")) clipVal = clipVal.substring(2).trim();
+        else if (clipVal.startsWith("=")) clipVal = clipVal.substring(1).trim();
+        clipVal = clipVal.replace(",", "");
+        try {
+            Calculator.parse(clipVal);
+            firstOperand = Calculator.sanitizeNumber(clipVal);
+            input.setLength(0);
+            currentOp = null;
+            computed = true;
+            updateDisplay();
+            toast(getString(R.string.msg_pasted_from_clipboard));
+            // Debug
+            toast("Paste branch: numeric");
+            performHapticFeedback(HapticFeedbackType.MEDIUM);
+            return true;
+        } catch (Exception ignored) {
+            // not a plain numeric value
+        }
+
+        // 4) Fallback: check clip description label if present (backwards compatibility)
+        CharSequence labelCs = (clip.getDescription() != null) ? clip.getDescription().getLabel() : null;
+        String label = labelCs == null ? null : labelCs.toString();
+        if ("calculator_preview".equals(label)) {
+            String[] lines = clipText.split("\\n", 2);
+            String expr = lines.length > 0 ? lines[0].trim() : "";
+            if (!expr.isEmpty() && tryParseAndSetExpression(expr)) {
+                computed = false;
+                updateDisplay();
+                toast(getString(R.string.msg_pasted_from_clipboard));
+                // Debug
+                toast("Paste branch: label=calculator_preview");
+                performHapticFeedback(HapticFeedbackType.MEDIUM);
+                return true;
+            }
+        } else if ("calculator_expression".equals(label)) {
+            if (tryParseAndSetExpression(clipText)) {
+                computed = false;
+                updateDisplay();
+                toast(getString(R.string.msg_pasted_from_clipboard));
+                // Debug
+                toast("Paste branch: label=calculator_expression");
+                performHapticFeedback(HapticFeedbackType.MEDIUM);
+                return true;
+            }
+        } else if ("calculator_result".equals(label)) {
+            String pastedVal = clipText;
+            if (pastedVal.startsWith("= ")) pastedVal = pastedVal.substring(2).trim();
+            if (pastedVal.startsWith("=")) pastedVal = pastedVal.substring(1).trim();
+            pastedVal = pastedVal.replace(",", "");
+            try {
+                firstOperand = Calculator.sanitizeNumber(pastedVal);
+                input.setLength(0);
+                currentOp = null;
+                computed = true;
+                updateDisplay();
+                toast(getString(R.string.msg_pasted_from_clipboard));
+                // Debug
+                toast("Paste branch: label=calculator_result");
+                performHapticFeedback(HapticFeedbackType.MEDIUM);
+                return true;
+            } catch (Exception ignored) {
+            }
+        }
+
+        // 5) Additional heuristics: normalize connector symbols and try to parse expressions without spaces
+        String normalized = clipText.replace('\u2212', '-') // minus sign
+                .replace('×', 'x').replace('÷', '/');
+        // Try expression without spaces: e.g. "12+3" or "12×3"
+        Pattern exprNoSpace = Pattern.compile("\\s*([+-]?[0-9,]*\\.?[0-9]+)\\s*([+\\-xX×\\/÷])\\s*([+-]?[0-9,]*\\.?[0-9]+)\\s*");
+        Matcher m = exprNoSpace.matcher(normalized);
+        if (m.find()) {
+            String a = m.group(1).replace(",", "");
+            String op = m.group(2);
+            String b = m.group(3).replace(",", "");
+            String opSymbol = op;
+            // Map to UI operator symbols if necessary
+            if (op.equals("x") || op.equals("X") || op.equals("×")) opSymbol = getString(R.string.key_mul);
+            else if (op.equals("/") || op.equals("÷")) opSymbol = getString(R.string.key_divide);
+            else if (op.equals("+")) opSymbol = getString(R.string.key_add);
+            else if (op.equals("-")) opSymbol = getString(R.string.key_sub);
+            String expr = a + " " + opSymbol + " " + b;
+            if (tryParseAndSetExpression(expr)) {
+                computed = false;
+                updateDisplay();
+                toast(getString(R.string.msg_pasted_from_clipboard));
+                toast("Paste branch: expression-no-space");
+                performHapticFeedback(HapticFeedbackType.MEDIUM);
+                return true;
+            }
+        }
+
+        // 6) Last resort: extract first numeric token from free text and paste as number
+        Pattern numPattern = Pattern.compile("[+-]?\\d{1,3}(?:,\\d{3})*(?:\\.\\d+)?|[+-]?\\d+\\.?\\d*");
+        Matcher numM = numPattern.matcher(clipText);
+        if (numM.find()) {
+            String found = numM.group(0).replace(",", "");
+            try {
+                Calculator.parse(found); // validate
+                firstOperand = Calculator.sanitizeNumber(found);
+                input.setLength(0);
+                currentOp = null;
+                computed = true;
+                updateDisplay();
+                toast(getString(R.string.msg_pasted_from_clipboard));
+                toast("Paste branch: extracted-number");
+                performHapticFeedback(HapticFeedbackType.MEDIUM);
+                return true;
+            } catch (Exception ignored) {
+            }
+        }
+
+         return false;
+    }
 
     @Override
     protected void onDestroy() {

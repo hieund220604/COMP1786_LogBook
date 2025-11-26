@@ -6,132 +6,142 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="@color/md_theme_background"
-    tools:context=".ui.ListHikeActivity">
+    tools:context=".view.ListHikeActivity">
 
-    <!-- Fixed App Bar -->
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        app:elevation="0dp">
-
-        <LinearLayout
-            android:id="@+id/topAppBarContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <FrameLayout
-                android:id="@+id/topAppBarInner"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@drawable/gradient_secondary">
-
-
-            <ImageView
-                    android:id="@+id/topAppBarIcon"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_back"
-                    android:contentDescription="@string/app_name"
-                    android:layout_marginStart="12dp"
-                    android:layout_gravity="start|center_vertical"
-                    app:tint="@color/white" />
-
-                <TextView
-                    android:id="@+id/topAppBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/title_list_hikes"
-                    android:textColor="@color/white"
-                    android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:layout_gravity="center" />
-
-            </FrameLayout>
-
-        </LinearLayout>
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <!-- Main Content -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:padding="20dp">
 
-        <!-- Modern Empty State -->
-        <LinearLayout
-            android:id="@+id/emptyState"
+        <!-- Simple Title TextView -->
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
+            android:layout_height="wrap_content"
+            android:text="@string/title_list_hikes"
+            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+            android:textStyle="bold"
+            android:textColor="@color/md_theme_primary"
             android:gravity="center"
-            android:visibility="gone"
-            android:padding="40dp">
+            android:layout_marginBottom="20dp"
+            android:paddingTop="24dp" />
 
-            <com.google.android.material.card.MaterialCardView
-                style="?attr/materialCardViewElevatedStyle"
-                android:layout_width="wrap_content"
+        <!-- Enhanced Search Card -->
+        <com.google.android.material.card.MaterialCardView
+            style="?attr/materialCardViewElevatedStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="8dp"
+            android:layout_marginBottom="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="100dp"
-                app:cardElevation="8dp"
-                app:cardBackgroundColor="@color/primary_ultra_light">
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:background="@color/white">
 
-                <FrameLayout
-                    android:layout_width="160dp"
-                    android:layout_height="160dp"
-                    android:padding="40dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp">
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/ic_mountain"
-                        app:tint="@color/md_theme_primary"
-                        android:alpha="0.6"
-                        android:contentDescription="No hikes" />
-                </FrameLayout>
-            </com.google.android.material.card.MaterialCardView>
+                    <FrameLayout
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/bg_icon_circle"
+                        android:backgroundTint="#F3E5F5">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="No Hikes Yet"
-                android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
-                android:textStyle="bold"
-                android:textColor="@color/md_theme_onSurface"
-                android:layout_marginTop="24dp" />
+                        <ImageView
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_search"
+                            app:tint="@color/card_purple_start"
+                            android:contentDescription="Search" />
+                    </FrameLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Start adding your hiking adventures!"
-                android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                android:textColor="@color/gray_600"
-                android:textAlignment="center"
-                android:layout_marginTop="12dp" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="12dp"
+                        android:text="Your Hikes"
+                        android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+                        android:textStyle="bold"
+                        android:textColor="@color/md_theme_onSurface" />
+                </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tap the + button to create your first hike"
-                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                android:textColor="@color/gray_500"
-                android:textAlignment="center"
-                android:layout_marginTop="8dp" />
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Manage and view all your hiking adventures"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                    android:textColor="@color/gray_600"
+                    android:layout_marginBottom="16dp" />
 
-        <!-- Enhanced RecyclerView -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnAddHike"
+                        android:layout_width="0dp"
+                        android:layout_height="56dp"
+                        android:layout_weight="1"
+                        android:text="Add New Hike"
+                        android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+                        android:textStyle="bold"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/gradient_primary"
+                        app:backgroundTint="@null"
+                        app:cornerRadius="12dp"
+                        app:icon="@drawable/ic_add"
+                        app:iconGravity="textStart"
+                        app:iconSize="20dp"
+                        app:iconTint="@color/white"
+                        android:textColor="@color/white"
+                        app:elevation="4dp"
+                        style="@style/Widget.Material3.Button" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnSearch"
+                        android:layout_width="0dp"
+                        android:layout_height="56dp"
+                        android:layout_weight="1"
+                        android:text="Search Hikes"
+                        android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+                        android:textStyle="bold"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/gradient_purple"
+                        app:backgroundTint="@null"
+                        app:cornerRadius="12dp"
+                        app:icon="@drawable/ic_search"
+                        app:iconGravity="textStart"
+                        app:iconSize="20dp"
+                        app:iconTint="@color/white"
+                        android:textColor="@color/white"
+                        app:elevation="4dp"
+                        style="@style/Widget.Material3.Button" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Hikes List -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerHike"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:clipToPadding="false"
-            android:padding="8dp"
-            android:scrollbars="vertical" />
+            android:scrollbars="vertical"
+            android:paddingBottom="20dp" />
+
     </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

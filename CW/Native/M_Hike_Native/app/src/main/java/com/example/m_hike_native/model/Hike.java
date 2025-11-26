@@ -9,6 +9,9 @@ public class Hike {
     private String description;
     private double length;
     private boolean parking;
+    // New attributes
+    private double elevation; // in meters
+    private int durationMinutes; // total duration in minutes
 
     public Hike() {}
 
@@ -20,6 +23,21 @@ public class Hike {
         this.difficulty = difficulty;
         this.parking = parking;
         this.description = description;
+        this.elevation = 0.0;
+        this.durationMinutes = 0;
+    }
+
+    // New constructor including elevation and duration
+    public Hike(String name, String location, String date, double length, String difficulty, boolean parking, String description, double elevation, int durationMinutes) {
+        this.name = name;
+        this.location = location;
+        this.date = date;
+        this.length = length;
+        this.difficulty = difficulty;
+        this.parking = parking;
+        this.description = description;
+        this.elevation = elevation;
+        this.durationMinutes = durationMinutes;
     }
 
     public int getId() { return id; }
@@ -46,9 +64,15 @@ public class Hike {
     public boolean isParking() { return parking; }
     public void setParking(boolean parking) { this.parking = parking; }
 
+    // New getters/setters
+    public double getElevation() { return elevation; }
+    public void setElevation(double elevation) { this.elevation = elevation; }
+
+    public int getDurationMinutes() { return durationMinutes; }
+    public void setDurationMinutes(int durationMinutes) { this.durationMinutes = durationMinutes; }
+
     @Override
     public String toString() {
         return name + " — " + location;
     }
 }
-

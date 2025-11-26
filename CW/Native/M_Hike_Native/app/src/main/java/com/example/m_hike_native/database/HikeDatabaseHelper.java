@@ -1,4 +1,4 @@
-package com.example.m_hike_native.database;
+package com.example.m_hike_native.data;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -11,7 +11,7 @@ import com.example.m_hike_native.model.Observation;
 
 public class HikeDatabaseHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "mhike.db";
-    private static final int DB_VERSION = 2;
+    private static final int DB_VERSION = 3; // bumped to add elevation and duration
 
     public static final String TABLE_HIKES = "hikes";
     public static final String COL_H_ID = "id";
@@ -19,6 +19,8 @@ public class HikeDatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_H_LOCATION = "location";
     public static final String COL_H_DATE = "date";
     public static final String COL_H_LENGTH = "length";
+    public static final String COL_H_ELEVATION = "elevation";
+    public static final String COL_H_DURATION = "duration_minutes";
     public static final String COL_H_DIFFICULTY = "difficulty";
     public static final String COL_H_PARKING = "parking";
     public static final String COL_H_DESCRIPTION = "description";
@@ -42,6 +44,8 @@ public class HikeDatabaseHelper extends SQLiteOpenHelper {
                 COL_H_LOCATION + " TEXT NOT NULL, " +
                 COL_H_DATE + " TEXT, " +
                 COL_H_LENGTH + " REAL, " +
+                COL_H_ELEVATION + " REAL, " +
+                COL_H_DURATION + " INTEGER, " +
                 COL_H_DIFFICULTY + " TEXT, " +
                 COL_H_PARKING + " INTEGER, " +
                 COL_H_DESCRIPTION + " TEXT)");
@@ -57,9 +61,16 @@ public class HikeDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_OBS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_HIKES);
-        onCreate(db);
+        // Keep existing data where possible: add new columns when upgrading from older versions
+        if (oldVersion < 3) {
+            try {
+                db.execSQL("ALTER TABLE " + TABLE_HIKES + " ADD COLUMN " + COL_H_ELEVATION + " REAL DEFAULT 0");
+            } catch (Exception ignored) {}
+            try {
+                db.execSQL("ALTER TABLE " + TABLE_HIKES + " ADD COLUMN " + COL_H_DURATION + " INTEGER DEFAULT 0");
+            } catch (Exception ignored) {}
+        }
+        // For major schema changes you can drop/recreate; keep simple here.
     }
 
     public boolean insertHike(Hike hike) {
@@ -69,6 +80,8 @@ public class HikeDatabaseHelper extends SQLiteOpenHelper {
         cv.put(COL_H_LOCATION, hike.getLocation());
         cv.put(COL_H_DATE, hike.getDate());
         cv.put(COL_H_LENGTH, hike.getLength());
+        cv.put(COL_H_ELEVATION, hike.getElevation());
+        cv.put(COL_H_DURATION, hike.getDurationMinutes());
         cv.put(COL_H_DIFFICULTY, hike.getDifficulty());
         cv.put(COL_H_PARKING, hike.isParking() ? 1 : 0);
         cv.put(COL_H_DESCRIPTION, hike.getDescription());
@@ -121,10 +134,27 @@ public class HikeDatabaseHelper extends SQLiteOpenHelper {
         cv.put(COL_H_LOCATION, hike.getLocation());
         cv.put(COL_H_DATE, hike.getDate());
         cv.put(COL_H_LENGTH, hike.getLength());
+        cv.put(COL_H_ELEVATION, hike.getElevation());
+        cv.put(COL_H_DURATION, hike.getDurationMinutes());
         cv.put(COL_H_DIFFICULTY, hike.getDifficulty());
         cv.put(COL_H_PARKING, hike.isParking() ? 1 : 0);
         cv.put(COL_H_DESCRIPTION, hike.getDescription());
         return db.update(TABLE_HIKES, cv, COL_H_ID + "=?", new String[]{String.valueOf(hike.getId())});
+    }
+
+    // add observation update/delete methods so activities can call them
+    public int updateObservation(Observation obs) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COL_O_OBSERVATION, obs.getObservation());
+        cv.put(COL_O_TIME, obs.getTime());
+        cv.put(COL_O_COMMENTS, obs.getComments());
+        return db.update(TABLE_OBS, cv, COL_O_ID + "=?", new String[]{String.valueOf(obs.getId())});
+    }
+
+    public int deleteObservation(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(TABLE_OBS, COL_O_ID + "=?", new String[]{String.valueOf(id)});
     }
 
 }
